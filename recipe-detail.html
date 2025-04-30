@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>레시피 상세 - BabBabBook</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <script src="recipe-detail.js"></script>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="logo">BabBabBook</div>
+      <a href="home.html" class="back-btn">
+        <i class="fas fa-arrow-left"></i> 돌아가기
+      </a>
+    </nav>
+
+    <div class="recipe-detail-container">
+      <div class="recipe-header">
+        <h1>김치찌개</h1>
+        <div class="recipe-meta">
+          <span class="category">한식</span>
+          <div class="like-btn">
+            <i class="far fa-heart"></i>
+            <span>128</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="main-image">
+        <img src="https://placehold.co/800x400" alt="김치찌개 대표 이미지" />
+      </div>
+
+      <div class="recipe-description">
+        <p>
+          집에서 쉽게 만드는 맛있는 김치찌개 레시피입니다. 신선한 김치와
+          돼지고기를 사용하여 깊은 맛을 내는 것이 포인트입니다.
+        </p>
+      </div>
+
+      <div class="recipe-steps">
+        <h2>조리 과정</h2>
+        <div class="step">
+          <div class="step-image">
+            <img src="https://placehold.co/400x300" alt="조리 단계 1" />
+          </div>
+          <div class="step-content">
+            <h3>단계 1</h3>
+            <p>
+              김치를 적당한 크기로 썰어주세요. 김치의 국물은 따로 보관해두세요.
+            </p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-image">
+            <img src="https://placehold.co/400x300" alt="조리 단계 2" />
+          </div>
+          <div class="step-content">
+            <h3>단계 2</h3>
+            <p>
+              냄비에 참기름을 두르고 돼지고기를 볶아주세요. 고기가 익을 때까지
+              중불에서 볶아주세요.
+            </p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-image">
+            <img src="https://placehold.co/400x300" alt="조리 단계 3" />
+          </div>
+          <div class="step-content">
+            <h3>단계 3</h3>
+            <p>
+              볶은 고기에 김치를 넣고 함께 볶아주세요. 김치가 부드러워질 때까지
+              볶아주세요.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="comments-section">
+        <h2>댓글</h2>
+        <div class="comment-list">
+          <div class="comment">
+            <div class="comment-header">
+              <span class="comment-author">홍길동</span>
+              <span class="comment-date">2024-03-15</span>
+            </div>
+            <p class="comment-content">
+              정말 맛있게 만들어 먹었어요! 감사합니다.
+            </p>
+          </div>
+
+          <div class="comment">
+            <div class="comment-header">
+              <span class="comment-author">김철수</span>
+              <span class="comment-date">2024-03-14</span>
+            </div>
+            <p class="comment-content">
+              김치가 신선해서 더 맛있었네요. 다음에도 좋은 레시피 기대합니다!
+            </p>
+          </div>
+        </div>
+
+        <div class="comment-form">
+          <textarea placeholder="댓글을 입력하세요"></textarea>
+          <button class="submit-btn">댓글 등록</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
