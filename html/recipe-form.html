@@ -124,5 +124,35 @@
         </form>
       </div>
     </div>
+    <script type="module">
+      import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js';
+      import { getAnalytics } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-analytics.js';
+      import {
+        getDatabase,
+        ref,
+        set,
+      } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-database.js';
+
+      const firebaseConfig = {
+        apiKey: 'AIzaSyD2z7skDu77E-lCRQDUwGhU0B9NTPB2MjA',
+        authDomain: 'babbabbook.firebaseapp.com',
+        databaseURL:
+          'https://babbabbook-default-rtdb.asia-southeast1.firebasedatabase.app',
+        projectId: 'babbabbook',
+        storageBucket: 'babbabbook.firebasestorage.app',
+        messagingSenderId: '823035081130',
+        appId: '1:823035081130:web:a0ddf2921fdb3c4b65fbd3',
+        measurementId: 'G-MMYJXZX428',
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+      const db = getDatabase();
+
+      set(ref(db, 'recipes/test'), {
+        title: '테스트 레시피',
+        description: '맛있게 만들어봐요!',
+      });
+    </script>
   </body>
 </html>
