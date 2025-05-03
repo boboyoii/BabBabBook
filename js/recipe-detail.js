@@ -1,3 +1,16 @@
+function readData() {
+  fetch(
+    'https://babbabbook-default-rtdb.asia-southeast1.firebasedatabase.app/recipes.json'
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      console.log('데이터 읽기 성공:', data);
+    })
+    .catch((error) => {
+      console.error('에러 발생:', error);
+    });
+}
+
 document.addEventListener('DOMContentLoaded', function () {
   const likeBtn = document.querySelector('.like-btn');
   let isLiked = false;
@@ -16,4 +29,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     isLiked = !isLiked;
   });
+
+  readData();
 });
