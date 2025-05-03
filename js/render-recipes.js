@@ -6,9 +6,9 @@ async function loadRecipes() {
   return data;
 }
 
-function createRecipeCard(recipe) {
+function createRecipeCard(id, recipe) {
   return `
-    <div class="recipe-card">
+    <div class="recipe-card" data-id=${id}>
       <img src="https://placehold.co/300x200" alt="레시피 이미지" />
       <div class="recipe-info">
         <h3>${recipe.title}</h3>
@@ -25,10 +25,17 @@ function createRecipeCard(recipe) {
 async function renderRecipes() {
   const recipes = await loadRecipes();
   const grid = document.querySelector('.recipe-grid');
-  grid.innerHTML = ''; // 기존 카드 비우기
 
-  Object.values(recipes).forEach((recipe) => {
-    grid.innerHTML += createRecipeCard(recipe);
+  Object.entries(recipes).forEach(([id, recipe]) => {
+    grid.innerHTML += createRecipeCard(id, recipe);
+  });
+
+  document.querySelectorAll('.recipe-card').forEach((card) => {
+    card.addEventListener('click', () => {
+      const recipeId = card.dataset.id;
+      console.log(recipeId);
+      window.location.href = `recipe-detail.html?id=${recipeId}`;
+    });
   });
 }
 
