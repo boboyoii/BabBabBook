@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>레시피 수정 - BabBabBook</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <script src="../js/recipe-form.js"></script>
+    <script src="../js/recipe-edit.js"></script>
+    <script src="../js/common.js"></script>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="logo">
+        BabBabBook
+        <img src="../assets/images/recipe-book.png" alt="레시피북" />
+      </div>
+      <a href="home.html" class="back-btn">
+        <i class="fas fa-arrow-left"></i> 돌아가기
+      </a>
+    </nav>
+
+    <div class="form-container">
+      <div class="form-card">
+        <h2>레시피 수정</h2>
+        <form id="recipeForm">
+          <div class="form-group">
+            <label for="title">제목</label>
+            <input
+              type="text"
+              id="title"
+              name="title"
+              placeholder="레시피 제목을 입력하세요"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="description">간단한 설명</label>
+            <textarea
+              id="description"
+              name="description"
+              placeholder="레시피에 대한 간단한 설명을 입력하세요"
+              required
+            ></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="category">카테고리</label>
+            <select id="category" name="category" required>
+              <option value="">카테고리를 선택하세요</option>
+              <option value="korean">한식</option>
+              <option value="western">양식</option>
+              <option value="chinese">중식</option>
+              <option value="japanese">일식</option>
+              <option value="dessert">디저트</option>
+              <option value="convenience-store">편의점</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="mainImage">대표 이미지</label>
+            <div class="image-upload main-image">
+              <input
+                type="file"
+                id="mainImage"
+                name="mainImage"
+                accept="image/*"
+                required
+              />
+              <div class="upload-preview">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <p>대표 이미지를 선택하세요</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="steps-container">
+            <h3>조리 단계</h3>
+            <div class="step-group" data-step="1">
+              <div class="step-header">
+                <h4>단계 1</h4>
+                <button
+                  type="button"
+                  class="remove-step-btn"
+                  style="display: none"
+                >
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+              <div class="form-group">
+                <label>이미지</label>
+                <div class="image-upload">
+                  <input
+                    type="file"
+                    name="stepImage[]"
+                    accept="image/*"
+                    required
+                  />
+                  <div class="upload-preview">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>단계별 이미지를 선택하세요</p>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>설명</label>
+                <textarea
+                  name="stepDescription[]"
+                  placeholder="이 단계에 대한 설명을 입력하세요"
+                  required
+                ></textarea>
+              </div>
+            </div>
+          </div>
+
+          <button type="button" class="add-step-btn">
+            <i class="fas fa-plus"></i> 단계 추가하기
+          </button>
+
+          <button type="submit" class="submit-btn">레시피 수정하기</button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

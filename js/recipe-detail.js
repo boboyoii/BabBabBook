@@ -54,6 +54,14 @@ async function deleteRecipe(recipeId) {
   }
 }
 
+function moveToEditPage(recipeId) {
+  if (recipeId) {
+    window.location.href = `recipe-edit.html?id=${recipeId}`;
+  } else {
+    alert('레시피 ID가 없습니다!');
+  }
+}
+
 document.addEventListener('DOMContentLoaded', async function () {
   const likeBtn = document.querySelector('.like-btn');
   let isLiked = false;
@@ -90,4 +98,7 @@ document.addEventListener('DOMContentLoaded', async function () {
       deleteRecipe(recipeId);
     }
   });
+
+  const editBtn = document.querySelector('.edit-btn');
+  editBtn.addEventListener('click', () => moveToEditPage(recipeId));
 });
