@@ -468,10 +468,26 @@ body {
     margin-bottom: 1rem;
 }
 
+.meta-bar{
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.meta-bar button{
+    margin: 0;
+}
+
+
 .recipe-meta {
     display: flex;
     align-items: center;
     gap: 1.5rem;
+}
+
+.recipe-btn-container{
+    display: flex;
 }
 
 .category {
