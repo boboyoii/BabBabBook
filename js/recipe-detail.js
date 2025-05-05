@@ -36,6 +36,24 @@ function renderRecipeDetail(recipe) {
   });
 }
 
+async function deleteRecipe(recipeId) {
+  console.log(recipeId);
+  const response = await fetch(
+    `https://babbabbook-default-rtdb.asia-southeast1.firebasedatabase.app/recipes/${recipeId}.json`,
+    {
+      method: 'DELETE',
+    }
+  );
+
+  if (response.ok) {
+    console.log('삭제 성공!');
+    alert('레시피가 성공적으로 삭제되었습니다!');
+    window.location.href = 'home.html';
+  } else {
+    console.error('삭제 실패', await response.text());
+  }
+}
+
 document.addEventListener('DOMContentLoaded', async function () {
   const likeBtn = document.querySelector('.like-btn');
   let isLiked = false;
@@ -64,4 +82,12 @@ document.addEventListener('DOMContentLoaded', async function () {
   } else {
     alert('레시피 ID가 없습니다!');
   }
+
+  const deleteBtn = document.querySelector('.delete-btn');
+  deleteBtn.addEventListener('click', () => {
+    const confirmDelete = confirm('정말 이 레시피를 삭제하시겠습니까?');
+    if (confirmDelete) {
+      deleteRecipe(recipeId);
+    }
+  });
 });
