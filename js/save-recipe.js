@@ -21,35 +21,33 @@ async function saveRecipe(data) {
   }
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-  const form = document.getElementById('recipeForm');
+const form = document.getElementById('recipeForm');
 
-  form.addEventListener('submit', async function (e) {
-    e.preventDefault(); // 폼 기본 제출 막기
+form.addEventListener('submit', async function (e) {
+  e.preventDefault(); // 폼 기본 제출 막기
 
-    const title = form.title.value;
-    const description = form.description.value;
-    const category = form.category.value;
+  const title = form.title.value;
+  const description = form.description.value;
+  const category = form.category.value;
 
-    // steps 데이터 수집
-    const stepGroups = form.querySelectorAll('.step-group');
-    const steps = [];
-    stepGroups.forEach((group) => {
-      const desc = group.querySelector(
-        'textarea[name="stepDescription[]"]'
-      ).value;
-      steps.push({ description: desc });
-    });
-
-    // 최종 데이터 구성
-    const recipeData = {
-      title,
-      description,
-      category,
-      steps,
-    };
-
-    // Firebase로 저장
-    await saveRecipe(recipeData);
+  // steps 데이터 수집
+  const stepGroups = form.querySelectorAll('.step-group');
+  const steps = [];
+  stepGroups.forEach((group) => {
+    const desc = group.querySelector(
+      'textarea[name="stepDescription[]"]'
+    ).value;
+    steps.push({ description: desc });
   });
+
+  // 최종 데이터 구성
+  const recipeData = {
+    title,
+    description,
+    category,
+    steps,
+  };
+
+  // Firebase로 저장
+  await saveRecipe(recipeData);
 });

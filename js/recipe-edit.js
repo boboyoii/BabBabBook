@@ -89,7 +89,7 @@ async function updateRecipe(recipeId, updatedData) {
   }
 }
 
-document.addEventListener('DOMContentLoaded', async function () {
+async function editRecipe() {
   const params = new URLSearchParams(window.location.search);
   const recipeId = params.get('id');
 
@@ -99,6 +99,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   }
 
   fillRecipeForm(recipeId);
+
   const form = document.getElementById('recipeForm');
 
   form.addEventListener('submit', async function (e) {
@@ -127,4 +128,6 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     await updateRecipe(recipeId, updatedData);
   });
-});
+}
+
+editRecipe();

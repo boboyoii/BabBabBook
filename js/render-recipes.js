@@ -39,4 +39,4 @@ async function renderRecipes() {
   });
 }
 
-document.addEventListener('DOMContentLoaded', renderRecipes);
+renderRecipes();

@@ -1,14 +1,13 @@
-document.addEventListener('DOMContentLoaded', function () {
-  const stepsContainer = document.querySelector('.steps-container');
-  const addStepBtn = document.querySelector('.add-step-btn');
-  let stepCount = 1;
+const stepsContainer = document.querySelector('.steps-container');
+const addStepBtn = document.querySelector('.add-step-btn');
+let stepCount = 1;
 
-  addStepBtn.addEventListener('click', function () {
-    stepCount++;
-    const newStep = document.createElement('div');
-    newStep.className = 'step-group';
-    newStep.dataset.step = stepCount;
-    newStep.innerHTML = `
+addStepBtn.addEventListener('click', function () {
+  stepCount++;
+  const newStep = document.createElement('div');
+  newStep.className = 'step-group';
+  newStep.dataset.step = stepCount;
+  newStep.innerHTML = `
       <div class="step-header">
         <h4>단계 ${stepCount}</h4>
         <button type="button" class="remove-step-btn">
@@ -30,8 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
         <textarea name="stepDescription[]" placeholder="이 단계에 대한 설명을 입력하세요" required></textarea>
       </div>
     `;
-    stepsContainer.appendChild(newStep);
-  });
+  stepsContainer.appendChild(newStep);
 
   stepsContainer.addEventListener('click', function (e) {
     if (e.target.closest('.remove-step-btn')) {

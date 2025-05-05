@@ -37,7 +37,6 @@ function renderRecipeDetail(recipe) {
 }
 
 async function deleteRecipe(recipeId) {
-  console.log(recipeId);
   const response = await fetch(
     `https://babbabbook-default-rtdb.asia-southeast1.firebasedatabase.app/recipes/${recipeId}.json`,
     {
@@ -46,7 +45,6 @@ async function deleteRecipe(recipeId) {
   );
 
   if (response.ok) {
-    console.log('삭제 성공!');
     alert('레시피가 성공적으로 삭제되었습니다!');
     window.location.href = 'home.html';
   } else {
@@ -62,25 +60,25 @@ function moveToEditPage(recipeId) {
   }
 }
 
-document.addEventListener('DOMContentLoaded', async function () {
-  const likeBtn = document.querySelector('.like-btn');
-  let isLiked = false;
+const likeBtn = document.querySelector('.like-btn');
+let isLiked = false;
 
-  likeBtn.addEventListener('click', function () {
-    const heartIcon = this.querySelector('i');
-    const likeCount = this.querySelector('span');
+likeBtn.addEventListener('click', function () {
+  const heartIcon = this.querySelector('i');
+  const likeCount = this.querySelector('span');
 
-    if (isLiked) {
-      heartIcon.className = 'far fa-heart';
-      likeCount.textContent = parseInt(likeCount.textContent) - 1;
-    } else {
-      heartIcon.className = 'fas fa-heart';
-      likeCount.textContent = parseInt(likeCount.textContent) + 1;
-    }
+  if (isLiked) {
+    heartIcon.className = 'far fa-heart';
+    likeCount.textContent = parseInt(likeCount.textContent) - 1;
+  } else {
+    heartIcon.className = 'fas fa-heart';
+    likeCount.textContent = parseInt(likeCount.textContent) + 1;
+  }
 
-    isLiked = !isLiked;
-  });
+  isLiked = !isLiked;
+});
 
+async function loadRecipe() {
   const params = new URLSearchParams(window.location.search);
   const recipeId = params.get('id');
 
@@ -101,4 +99,6 @@ document.addEventListener('DOMContentLoaded', async function () {
 
   const editBtn = document.querySelector('.edit-btn');
   editBtn.addEventListener('click', () => moveToEditPage(recipeId));
-});
+}
+
+loadRecipe();
