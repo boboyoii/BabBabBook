@@ -7,8 +7,18 @@ async function loadRecipeDetail(id) {
 }
 
 function renderRecipeDetail(recipe) {
+  const categoryMap = {
+    korean: '한식',
+    western: '양식',
+    chinese: '중식',
+    japanese: '일식',
+    dessert: '디저트',
+    'convenience-store': '편의점',
+  };
+
   document.querySelector('.recipe-header h1').textContent = recipe.title;
-  document.querySelector('.category').textContent = recipe.category;
+  document.querySelector('.category').textContent =
+    categoryMap[recipe.category] || recipe.category;
   document.querySelector('.recipe-description p').textContent =
     recipe.description;
 
