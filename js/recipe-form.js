@@ -2,6 +2,24 @@ const stepsContainer = document.querySelector('.steps-container');
 const addStepBtn = document.querySelector('.add-step-btn');
 let stepCount = 1;
 
+stepsContainer.addEventListener('click', function (e) {
+  if (e.target.closest('.remove-step-btn')) {
+    const stepGroup = e.target.closest('.step-group');
+    if (document.querySelectorAll('.step-group').length > 1) {
+      stepGroup.remove();
+      document.querySelectorAll('.step-group').forEach((group, index) => {
+        group.dataset.step = index + 1;
+        group.querySelector('h4').textContent = `단계 ${index + 1}`;
+      });
+
+      const removeBtns = stepsContainer.querySelectorAll('.remove-step-btn');
+      if (removeBtns.length === 1) {
+        removeBtns[0].style.display = 'none';
+      }
+    }
+  }
+});
+
 addStepBtn.addEventListener('click', function () {
   stepCount++;
   const newStep = document.createElement('div');
@@ -31,19 +49,10 @@ addStepBtn.addEventListener('click', function () {
     `;
   stepsContainer.appendChild(newStep);
 
-  stepsContainer.addEventListener('click', function (e) {
-    if (e.target.closest('.remove-step-btn')) {
-      const stepGroup = e.target.closest('.step-group');
-      if (document.querySelectorAll('.step-group').length > 1) {
-        stepGroup.remove();
-        // 단계 번호 재정렬
-        document.querySelectorAll('.step-group').forEach((group, index) => {
-          group.dataset.step = index + 1;
-          group.querySelector('h4').textContent = `단계 ${index + 1}`;
-        });
-      }
-    }
-  });
+  const removeBtns = stepsContainer.querySelectorAll('.remove-step-btn');
+  if (removeBtns.length > 1) {
+    removeBtns.forEach((btn) => (btn.style.display = ''));
+  }
 });
 
 const mainImageInput = document.getElementById('mainImage');
