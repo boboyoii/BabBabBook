@@ -1,3 +1,16 @@
+import { storage } from './firebase-init.js';
+import {
+  ref,
+  uploadBytes,
+  getDownloadURL,
+} from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-storage.js';
+
+async function uploadImage(file, folder) {
+  const fileRef = ref(storage, `${folder}/${Date.now()}_${file.name}`);
+  await uploadBytes(fileRef, file);
+  return await getDownloadURL(fileRef);
+}
+
 async function fillRecipeForm(recipeId) {
   try {
     const response = await fetch(
@@ -18,7 +31,7 @@ async function fillRecipeForm(recipeId) {
       '.main-image .upload-preview'
     );
     if (recipe.mainImage) {
-      mainImagePreview.innerHTML = `<img src="${recipe.mainImage}" alt="대표 이미지" style="max-width: 100%; height: auto;" />`;
+      mainImagePreview.innerHTML = `<img src="${recipe.mainImage}" alt="대표 이미지" />`;
     }
 
     const stepsContainer = document.querySelector('.steps-container');
@@ -42,7 +55,7 @@ async function fillRecipeForm(recipeId) {
             <div class="upload-preview">
               ${
                 step.image
-                  ? `<img src="${step.image}" alt="단계 이미지" style="max-width: 100%; height: auto;" />`
+                  ? `<img src="${step.image}" alt="단계 이미지"/>`
                   : `<i class="fas fa-cloud-upload-alt"></i><p>단계별 이미지를 선택하세요</p>`
               }
             </div>
@@ -109,20 +122,29 @@ async function editRecipe() {
     const description = form.description.value;
     const category = form.category.value;
 
+    const mainImageFile = form.mainImage.files[0];
+    let mainImage = recipe.mainImage;
+    if (mainImageFile) {
+      mainImage = await uploadImage(mainImageFile, 'mainImages');
+    }
+
     // steps 데이터 수집
     const stepGroups = form.querySelectorAll('.step-group');
     const steps = [];
-    stepGroups.forEach((group) => {
+    for (const group of stepGroups) {
       const desc = group.querySelector(
         'textarea[name="stepDescription[]"]'
       ).value;
-      steps.push({ description: desc });
-    });
+      const imgFile = group.querySelector('input[name="stepImage[]"]').files[0];
+      const imgUrl = await uploadImage(imgFile, 'stepImages');
+      steps.push({ description: desc, imageUrl: imgUrl });
+    }
 
     const updatedData = {
       title,
       description,
       category,
+      mainImage,
       steps,
     };
 
