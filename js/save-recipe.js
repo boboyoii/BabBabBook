@@ -42,7 +42,7 @@ form.addEventListener('submit', async function (e) {
   const category = form.category.value;
 
   const mainImageFile = form.mainImage.files[0];
-  const mainImageUrl = await uploadImage(mainImageFile, 'mainImages');
+  const mainImage = await uploadImage(mainImageFile, 'mainImages');
 
   // steps 데이터 수집
   const stepGroups = form.querySelectorAll('.step-group');
@@ -53,7 +53,7 @@ form.addEventListener('submit', async function (e) {
     ).value;
     const imgFile = group.querySelector('input[name="stepImage[]"]').files[0];
     const imgUrl = await uploadImage(imgFile, 'stepImages');
-    steps.push({ description: desc, imageUrl: imgUrl });
+    steps.push({ description: desc, image: imgUrl });
   }
 
   // 최종 데이터 구성
@@ -61,7 +61,7 @@ form.addEventListener('submit', async function (e) {
     title,
     description,
     category,
-    mainImageUrl,
+    mainImage,
     steps,
   };
 
