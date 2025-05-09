@@ -1,3 +1,16 @@
+import { storage } from './firebase-init.js';
+import {
+  ref,
+  uploadBytes,
+  getDownloadURL,
+} from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-storage.js';
+
+async function uploadImage(file, folder) {
+  const fileRef = ref(storage, `${folder}/${Date.now()}_${file.name}`);
+  await uploadBytes(fileRef, file);
+  return await getDownloadURL(fileRef);
+}
+
 async function saveRecipe(data) {
   try {
     const response = await fetch(
@@ -30,21 +43,27 @@ form.addEventListener('submit', async function (e) {
   const description = form.description.value;
   const category = form.category.value;
 
+  const mainImageFile = form.mainImage.files[0];
+  const mainImageUrl = await uploadImage(mainImageFile, 'mainImages');
+
   // steps 데이터 수집
   const stepGroups = form.querySelectorAll('.step-group');
   const steps = [];
-  stepGroups.forEach((group) => {
+  for (const group of stepGroups) {
     const desc = group.querySelector(
       'textarea[name="stepDescription[]"]'
     ).value;
-    steps.push({ description: desc });
-  });
+    const imgFile = group.querySelector('input[name="stepImage[]"]').files[0];
+    const imgUrl = await uploadImage(imgFile, 'stepImages');
+    steps.push({ description: desc, imageUrl: imgUrl });
+  }
 
   // 최종 데이터 구성
   const recipeData = {
     title,
     description,
     category,
+    mainImageUrl,
     steps,
   };
 
