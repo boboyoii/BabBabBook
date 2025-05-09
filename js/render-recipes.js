@@ -9,7 +9,7 @@ async function loadRecipes() {
 function createRecipeCard(id, recipe) {
   return `
     <div class="recipe-card" data-id=${id}>
-      <img src="https://placehold.co/300x200" alt="레시피 이미지" />
+      <img src="${recipe.mainImage}" alt="레시피 이미지" />
       <div class="recipe-info">
         <h3>${recipe.title}</h3>
         <p>${recipe.description}</p>
