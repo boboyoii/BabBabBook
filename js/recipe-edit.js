@@ -32,6 +32,7 @@ async function fillRecipeForm(recipeId) {
     );
     if (recipe.mainImage) {
       mainImagePreview.innerHTML = `<img src="${recipe.mainImage}" alt="대표 이미지" />`;
+      mainImageInput.required = false;
     }
 
     const stepsContainer = document.querySelector('.steps-container');
@@ -41,10 +42,14 @@ async function fillRecipeForm(recipeId) {
       const stepGroup = document.createElement('div');
       stepGroup.className = 'step-group';
       stepGroup.setAttribute('data-step', index + 1);
+
+      const showRemoveBtn =
+        recipe.steps.length > 1 ? '' : 'style="display:none"';
+
       stepGroup.innerHTML = `
         <div class="step-header">
           <h4>단계 ${index + 1}</h4>
-          <button type="button" class="remove-step-btn">
+          <button type="button" class="remove-step-btn" ${showRemoveBtn}>
             <i class="fas fa-times"></i>
           </button>
         </div>
@@ -69,7 +74,14 @@ async function fillRecipeForm(recipeId) {
         </div>
       `;
       stepsContainer.appendChild(stepGroup);
+
+      const input = stepGroup.querySelector('input[name="stepImage[]"]');
+      if (step.image) {
+        input.required = false;
+      }
     });
+
+    return recipe;
   } catch (error) {
     console.error('레시피 불러오기 실패:', error);
     alert('레시피 데이터를 불러오는 중 오류가 발생했습니다.');
@@ -111,7 +123,7 @@ async function editRecipe() {
     return;
   }
 
-  fillRecipeForm(recipeId);
+  const recipe = await fillRecipeForm(recipeId);
 
   const form = document.getElementById('recipeForm');
 
@@ -131,13 +143,19 @@ async function editRecipe() {
     // steps 데이터 수집
     const stepGroups = form.querySelectorAll('.step-group');
     const steps = [];
-    for (const group of stepGroups) {
+    for (let i = 0; i < stepGroups.length; i++) {
+      const group = stepGroups[i];
       const desc = group.querySelector(
         'textarea[name="stepDescription[]"]'
       ).value;
       const imgFile = group.querySelector('input[name="stepImage[]"]').files[0];
-      const imgUrl = await uploadImage(imgFile, 'stepImages');
-      steps.push({ description: desc, imageUrl: imgUrl });
+      let imgUrl = recipe.steps?.[i]?.image || null;
+
+      if (imgFile) {
+        imgUrl = await uploadImage(imgFile, 'stepImages');
+      }
+
+      steps.push({ description: desc, image: imgUrl });
     }
 
     const updatedData = {
