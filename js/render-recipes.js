@@ -26,16 +26,12 @@ export async function renderRecipes(category) {
   const recipes = await loadRecipes();
   const grid = document.querySelector('.recipe-grid');
   grid.innerHTML = '';
-  if (category === 'all') {
-    Object.entries(recipes).forEach(([id, recipe]) => {
+
+  Object.entries(recipes).forEach(([id, recipe]) => {
+    if (category === 'all' || recipe.category === category) {
       grid.innerHTML += createRecipeCard(id, recipe);
-    });
-  } else {
-    Object.entries(recipes).forEach(([id, recipe]) => {
-      if (recipe.category === category)
-        grid.innerHTML += createRecipeCard(id, recipe);
-    });
-  }
+    }
+  });
 
   document.querySelectorAll('.recipe-card').forEach((card) => {
     card.addEventListener('click', () => {
