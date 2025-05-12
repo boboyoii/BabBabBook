@@ -1,5 +1,3 @@
-import { categoryMap } from './home.js';
-
 async function loadRecipes() {
   const response = await fetch(
     'https://babbabbook-default-rtdb.asia-southeast1.firebasedatabase.app/recipes.json'
@@ -33,7 +31,7 @@ export async function renderRecipes(keyword, category) {
     const inCategory = category === 'all' || recipe.category === category;
     const inKeyword =
       recipe.title.toLowerCase().includes(keyword) ||
-      recipe.category.toLowerCase().includes(categoryMap[keyword]);
+      recipe.description.toLowerCase().includes(keyword);
     if (inCategory && inKeyword) {
       grid.innerHTML += createRecipeCard(id, recipe);
     }

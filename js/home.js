@@ -34,7 +34,7 @@ searchInput.addEventListener('keydown', (e) => {
   }
 });
 
-export const categoryMap = {
+const categoryMap = {
   전체: 'all',
   한식: 'korean',
   양식: 'western',
