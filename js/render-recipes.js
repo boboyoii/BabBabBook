@@ -1,3 +1,5 @@
+import { categoryMap } from './home.js';
+
 async function loadRecipes() {
   const response = await fetch(
     'https://babbabbook-default-rtdb.asia-southeast1.firebasedatabase.app/recipes.json'
@@ -22,13 +24,17 @@ function createRecipeCard(id, recipe) {
   `;
 }
 
-export async function renderRecipes(category) {
+export async function renderRecipes(keyword, category) {
   const recipes = await loadRecipes();
   const grid = document.querySelector('.recipe-grid');
   grid.innerHTML = '';
 
   Object.entries(recipes).forEach(([id, recipe]) => {
-    if (category === 'all' || recipe.category === category) {
+    const inCategory = category === 'all' || recipe.category === category;
+    const inKeyword =
+      recipe.title.toLowerCase().includes(keyword) ||
+      recipe.category.toLowerCase().includes(categoryMap[keyword]);
+    if (inCategory && inKeyword) {
       grid.innerHTML += createRecipeCard(id, recipe);
     }
   });
