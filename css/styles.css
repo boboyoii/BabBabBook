@@ -43,14 +43,24 @@ body {
     padding: 0 10px;
     width: 400px;
     height: 36px;
-    margin-right: 530px;
+    margin-right: 520px;
     border: 1.5px solid #686868;
     border-radius: 5px;
 }
 
+.search-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: space-between;
+}
 .search-bar:focus{
     outline: 0.5px solid #bcbcbc;
     
+}
+
+.menu-btns{
+    display: flex;
 }
 
 .menu-btn{
@@ -177,7 +187,7 @@ body {
     }
     .search-bar{
         width: 200px;
-        margin-right: 70px;
+        margin-right: 64px;
     }
     .search-icon{
         left: 185px
@@ -193,12 +203,51 @@ body {
 }
 
 @media (max-width: 480px) {
+    .navbar{
+        display: block;
+        padding: 1rem;
+    }
+    .logo{
+        font-size: 1.2rem;
+        display: inline-block;
+    }
+    .logo img{
+        width: 20px;
+        top: 2px;
+    }
+    .search-bar{
+        margin: 10px 0;
+        font-size: 11px;
+        width: 215px;
+    }
+    .search-icon{
+        left: 53px;
+        top: 40px;
+    }
+    .menu-btns{
+        width: 100px;
+    }
+    .menu-btn{
+        width: 40px;
+        height: 40px;
+        margin: 0;
+    }
+    .menu-btn p{
+        font-size: x-small;
+        
+    }
     .recipe-grid {
         grid-template-columns: 1fr;
     }
+    .category-btn{
+        font-size: 11px;
+        padding: 8px 10px;
+    }
     
     .category-filter {
+        gap: 10px;
         flex-wrap: wrap;
+        padding: 6px 0;
     }
 }
 
@@ -344,12 +393,18 @@ body {
 }
 
 @media (max-width: 480px) {
+    *{font-size: 14px;}
+  
+    .back-btn{
+        padding: 0.5rem 0;
+    }
     .form-card {
         padding: 1rem;
     }
 
     .form-group textarea {
         min-height: 120px;
+        font-size: 14px;
     }
 }
 
