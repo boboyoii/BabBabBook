@@ -56,7 +56,7 @@ async function deleteRecipe(recipeId) {
 
   if (response.ok) {
     alert('레시피가 성공적으로 삭제되었습니다!');
-    window.location.href = 'home.html';
+    window.location.href = '/';
   } else {
     console.error('삭제 실패', await response.text());
   }
