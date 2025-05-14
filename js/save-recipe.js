@@ -26,7 +26,7 @@ async function saveRecipe(data) {
 
     const result = await response.json();
     alert('레시피가 성공적으로 저장되었습니다!');
-    window.location.href = '/';
+    window.location.href = `recipe-detail.html?id=${result.name}`;
   } catch (error) {
     alert('저장에 실패했습니다. 다시 시도해주세요.');
   }
