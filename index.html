@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BabBabBook</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="logo">
+        BabBabBook
+        <img src="assets/images/recipe-book.png" alt="레시피북" />
+      </div>
+      <img src="assets/icon/search.svg" alt="" class="search-icon" />
+      <div class="search-wrapper">
+        <input
+          type="text"
+          placeholder="레시피 제목, 설명 검색"
+          class="search-bar"
+        />
+        <div class="menu-btns">
+          <button class="menu-btn upload-btn">
+            <img src="assets/icon/pen-fill.svg" alt="작성 아이콘" />
+            <p>write</p>
+          </button>
+          <button class="menu-btn">
+            <img src="assets/icon/person-fill.svg" alt="마이페이지 아이콘" />
+            <p>mypage</p>
+          </button>
+          <button class="menu-btn">
+            <img src="assets/icon/door-open-fill.svg" alt="로그인 아이콘" />
+            <p>Login</p>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <div class="category-filter">
+      <button class="category-btn active">전체</button>
+      <button class="category-btn">한식</button>
+      <button class="category-btn">양식</button>
+      <button class="category-btn">중식</button>
+      <button class="category-btn">일식</button>
+      <button class="category-btn">디저트</button>
+      <button class="category-btn">편의점</button>
+    </div>
+
+    <div class="recipe-grid"></div>
+  </body>
+  <script type="module" src="js/home.js"></script>
+  <script src="js/common.js"></script>
+  <script type="module" src="js/render-recipes.js"></script>
+</html>

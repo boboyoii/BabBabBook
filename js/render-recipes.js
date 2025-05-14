@@ -41,7 +41,7 @@ export async function renderRecipes(keyword, category) {
     card.addEventListener('click', () => {
       const recipeId = card.dataset.id;
       console.log(recipeId);
-      window.location.href = `recipe-detail.html?id=${recipeId}`;
+      window.location.href = `html/recipe-detail.html?id=${recipeId}`;
     });
   });
 }

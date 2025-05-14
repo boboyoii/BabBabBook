@@ -2,7 +2,7 @@ import { renderRecipes } from './render-recipes.js';
 
 const uploadBtn = document.querySelector('.upload-btn');
 uploadBtn.addEventListener('click', function () {
-  window.location.href = 'recipe-form.html';
+  window.location.href = 'html/recipe-form.html';
 });
 
 const categoryBtns = document.querySelectorAll('.category-btn');
