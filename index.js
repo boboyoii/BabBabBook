@@ -1,6 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import recipesRouter from './routes/recipes.js';
 
 dotenv.config();
 
@@ -14,6 +15,9 @@ app.use(express.json());
 mongoose.connect(process.env.MONGODB_URI)
   .then(()=> console.log('MongoDB successfully connected.'))
   .catch(err => console.error('MongoDB connection error:', err));
+
+// 라우트 연결
+app.use('/api/recipes', recipesRouter);
 
 // 기본 라우트
 app.get('/', (req, res) => {
