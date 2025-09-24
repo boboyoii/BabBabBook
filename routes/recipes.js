@@ -32,7 +32,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-// 해당 ID인 레시피 상세 내용 조회
+// 해당 ID인 레시피 상세 내용 조회 (GET /api/recipes/{recipeId})
 router.get('/:id', async (req, res) => {
     try {
     const recipe = await Recipe.findById(req.params.id);
@@ -70,7 +70,25 @@ router.post('/', async (req, res) => {
   }
 });
 
-// 해당 ID인 레시피 수정
+// 해당 ID인 레시피 수정 (PATCH /api/recipes/{recipeId}ß)
+router.patch('/:id', async (req, res) => {
+  try{
+    const id = req.params.id;
+    const updatedRecipe = await Recipe.findByIdAndUpdate(
+      id,
+      req.body,
+      { new: true, runValidators: true }, 
+    );
+
+    if (!updatedRecipe) {
+      return res.status(404).json({ message: '레시피를 찾을 수 없습니다.' });
+    }
+
+    res.json(updatedRecipe);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
 
 // 해당 ID인 레시피 삭제 
 
