@@ -51,6 +51,24 @@ router.get('/:id', async (req, res) => {
 
 
 // 새로운 레시피 등록 (POST /api/recipes)
+router.post('/', async (req, res) => {
+  const { title, category, description, mainImage, steps } = req.body;
+
+  const newRecipe = new Recipe({
+    title,
+    category,
+    description,
+    mainImage,
+    steps,
+  });
+
+  try {
+    const savedRecipe = await newRecipe.save(); // 데이터베이스에 저장
+    res.status(201).json(savedRecipe); // 201 Created 응답 반환
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
 
 // 해당 ID인 레시피 수정
 
