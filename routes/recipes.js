@@ -33,6 +33,22 @@ router.get('/', async (req, res) => {
 });
 
 // 해당 ID인 레시피 상세 내용 조회
+router.get('/:id', async (req, res) => {
+    try {
+    const recipe = await Recipe.findById(req.params.id);
+    if (!recipe) {
+      return res.status(404).json({ message: '레시피를 찾을 수 없습니다.' });
+    }
+    res.json(recipe);
+  } catch (err) {
+    // 유효하지 않은 ID 형식일 경우
+    if (err.kind === 'ObjectId') {
+      return res.status(400).json({ message: '유효하지 않은 레시피 ID입니다.' });
+    }
+    res.status(500).json({ message: err.message });
+  }
+});
+
 
 // 새로운 레시피 등록 (POST /api/recipes)
 
