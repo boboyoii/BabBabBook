@@ -32,7 +32,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-// 해당 ID인 레시피 상세 내용 조회 (GET /api/recipes/{recipeId})
+// 해당 ID인 레시피 상세 내용 조회 (GET /api/recipes/:id)
 router.get('/:id', async (req, res) => {
     try {
     const recipe = await Recipe.findById(req.params.id);
@@ -41,7 +41,6 @@ router.get('/:id', async (req, res) => {
     }
     res.json(recipe);
   } catch (err) {
-    // 유효하지 않은 ID 형식일 경우
     if (err.kind === 'ObjectId') {
       return res.status(400).json({ message: '유효하지 않은 레시피 ID입니다.' });
     }
@@ -63,14 +62,14 @@ router.post('/', async (req, res) => {
   });
 
   try {
-    const savedRecipe = await newRecipe.save(); // 데이터베이스에 저장
-    res.status(201).json(savedRecipe); // 201 Created 응답 반환
+    const savedRecipe = await newRecipe.save(); 
+    res.status(201).json(savedRecipe); 
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
 });
 
-// 해당 ID인 레시피 수정 (PATCH /api/recipes/{recipeId}ß)
+// 해당 ID인 레시피 수정 (PATCH /api/recipes/:id)
 router.patch('/:id', async (req, res) => {
   try{
     const id = req.params.id;
@@ -90,6 +89,20 @@ router.patch('/:id', async (req, res) => {
   }
 });
 
-// 해당 ID인 레시피 삭제 
+// 해당 ID인 레시피 삭제 (DELETE /api/recipes/:id)
+router.delete('/:id', async (req, res) => {
+  try{
+    const id = req.params.id;
+    const deletedRecipe = await Recipe.findByIdAndDelete(id);
+
+    if (!deletedRecipe) {
+      return res.status(404).json({ message: '레시피를 찾을 수 없습니다.' });
+    }
+
+    res.status(200).json({ message: '레시피가 성공적으로 삭제되었습니다.' });
+  }catch(err){
+    res.status(500).json({ message: err.message });
+  }
+})
 
 export default router;
