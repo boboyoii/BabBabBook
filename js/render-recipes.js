@@ -6,9 +6,9 @@ async function loadRecipes() {
   return data;
 }
 
-function createRecipeCard(id, recipe) {
+function createRecipeCard(recipe) {
   return `
-    <div class="recipe-card" data-id=${id}>
+    <div class="recipe-card" data-id=${recipe._id}>
       <img src="${recipe.mainImage}" alt="레시피 이미지" />
       <div class="recipe-info">
         <h3>${recipe.title}</h3>
@@ -27,20 +27,19 @@ export async function renderRecipes(keyword, category) {
   const grid = document.querySelector('.recipe-grid');
   grid.innerHTML = '';
 
-  Object.entries(recipes).forEach(([id, recipe]) => {
+  recipes.forEach((recipe) => {
     const inCategory = category === 'all' || recipe.category === category;
     const inKeyword =
       recipe.title.toLowerCase().includes(keyword) ||
       recipe.description.toLowerCase().includes(keyword);
     if (inCategory && inKeyword) {
-      grid.innerHTML += createRecipeCard(id, recipe);
+      grid.innerHTML += createRecipeCard(recipe);
     }
   });
 
   document.querySelectorAll('.recipe-card').forEach((card) => {
     card.addEventListener('click', () => {
       const recipeId = card.dataset.id;
-      console.log(recipeId);
       window.location.href = `html/recipe-detail.html?id=${recipeId}`;
     });
   });
