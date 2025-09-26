@@ -48,7 +48,7 @@ function renderRecipeDetail(recipe) {
 
 async function deleteRecipe(recipeId) {
   const response = await fetch(
-    `https://babbabbook-default-rtdb.asia-southeast1.firebasedatabase.app/recipes/${recipeId}.json`,
+    `http://localhost:3000/api/recipes/${recipeId}`,
     {
       method: 'DELETE',
     }
