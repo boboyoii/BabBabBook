@@ -1,10 +1,3 @@
-import { storage } from './firebase-init.js';
-import {
-  ref,
-  uploadBytes,
-  getDownloadURL,
-} from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-storage.js';
-
 async function uploadImage(file, folder) {
   const fileRef = ref(storage, `${folder}/${Date.now()}_${file.name}`);
   await uploadBytes(fileRef, file);
@@ -14,7 +7,7 @@ async function uploadImage(file, folder) {
 async function saveRecipe(data) {
   try {
     const response = await fetch(
-      'https://babbabbook-default-rtdb.asia-southeast1.firebasedatabase.app/recipes.json',
+      'http://localhost:3000/api/recipes/',
       {
         method: 'POST',
         headers: {
@@ -24,9 +17,12 @@ async function saveRecipe(data) {
       }
     );
 
-    const result = await response.json();
-    alert('레시피가 성공적으로 저장되었습니다!');
-    window.location.href = `recipe-detail.html?id=${result.name}`;
+    if(response.ok){
+      const savedRecipe = await response.json();
+      alert('레시피가 성공적으로 저장되었습니다!');
+      window.location.href = `recipe-detail.html?id=${savedRecipe._id}`;
+    }
+    
   } catch (error) {
     alert('저장에 실패했습니다. 다시 시도해주세요.');
   }
@@ -42,7 +38,7 @@ form.addEventListener('submit', async function (e) {
   const category = form.category.value;
 
   const mainImageFile = form.mainImage.files[0];
-  const mainImage = await uploadImage(mainImageFile, 'mainImages');
+  const mainImage = null;
 
   // steps 데이터 수집
   const stepGroups = form.querySelectorAll('.step-group');
@@ -52,7 +48,7 @@ form.addEventListener('submit', async function (e) {
       'textarea[name="stepDescription[]"]'
     ).value;
     const imgFile = group.querySelector('input[name="stepImage[]"]').files[0];
-    const imgUrl = await uploadImage(imgFile, 'stepImages');
+    const imgUrl = null;
     steps.push({ description: desc, image: imgUrl });
   }
 
