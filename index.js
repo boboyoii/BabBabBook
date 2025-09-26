@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import recipesRouter from './routes/recipes.js';
@@ -10,6 +11,7 @@ const PORT = process.env.PORT || 3000;
 
 // 미들웨어
 app.use(express.json());
+app.use(cors());
 
 // MongoDB 연결
 mongoose.connect(process.env.MONGODB_URI)

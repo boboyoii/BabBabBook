@@ -1,6 +1,6 @@
 async function loadRecipes() {
   const response = await fetch(
-    'https://babbabbook-default-rtdb.asia-southeast1.firebasedatabase.app/recipes.json'
+    'http://localhost:3000/api/recipes'
   );
   const data = await response.json();
   return data;
