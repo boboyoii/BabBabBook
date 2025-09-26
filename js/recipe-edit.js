@@ -1,9 +1,3 @@
-import { storage } from './firebase-init.js';
-import {
-  ref,
-  uploadBytes,
-  getDownloadURL,
-} from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-storage.js';
 
 async function uploadImage(file, folder) {
   const fileRef = ref(storage, `${folder}/${Date.now()}_${file.name}`);
@@ -14,7 +8,7 @@ async function uploadImage(file, folder) {
 async function fillRecipeForm(recipeId) {
   try {
     const response = await fetch(
-      `https://babbabbook-default-rtdb.asia-southeast1.firebasedatabase.app/recipes/${recipeId}.json`
+      `http://localhost:3000/api/recipes/${recipeId}`
     );
     const recipe = await response.json();
 
@@ -91,7 +85,7 @@ async function fillRecipeForm(recipeId) {
 async function updateRecipe(recipeId, updatedData) {
   try {
     const response = await fetch(
-      `https://babbabbook-default-rtdb.asia-southeast1.firebasedatabase.app/recipes/${recipeId}.json`,
+      `http://localhost:3000/api/recipes/${recipeId}`,
       {
         method: 'PATCH',
         headers: {
@@ -136,9 +130,6 @@ async function editRecipe() {
 
     const mainImageFile = form.mainImage.files[0];
     let mainImage = recipe.mainImage;
-    if (mainImageFile) {
-      mainImage = await uploadImage(mainImageFile, 'mainImages');
-    }
 
     // steps 데이터 수집
     const stepGroups = form.querySelectorAll('.step-group');
@@ -151,9 +142,7 @@ async function editRecipe() {
       const imgFile = group.querySelector('input[name="stepImage[]"]').files[0];
       let imgUrl = recipe.steps?.[i]?.image || null;
 
-      if (imgFile) {
-        imgUrl = await uploadImage(imgFile, 'stepImages');
-      }
+     
 
       steps.push({ description: desc, image: imgUrl });
     }
